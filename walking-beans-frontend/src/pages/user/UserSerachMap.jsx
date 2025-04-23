@@ -18,7 +18,6 @@ const UserSearchMap = () => {
     const infoWindowsRef = useRef([]);
 
 
-    // ✅ lat, lng이 변경될 때마다 sessionStorage에 저장
     useEffect(() => {
         if (lat && lng) {
             sessionStorage.setItem("userLat", lat);
@@ -27,7 +26,7 @@ const UserSearchMap = () => {
     }, [lat, lng]);
 
 
-    //  매장의 리뷰를 가져와 업데이트하는 함수
+
     const fetchReviews = (storeId, callback) => {
         axios.get(`http://localhost:7070/api/reviews/${storeId}`)
             .then((res) => {
@@ -43,7 +42,7 @@ const UserSearchMap = () => {
             });
     };
 
-    //  주변 매장 데이터 가져오기 + 리뷰 업데이트
+
     const fetchNearbyStores = (lat, lng) => {
         axios.get(`http://localhost:7070/api/store/nearby?lat=${lat}&lng=${lng}`)
             .then((res) => {
@@ -68,7 +67,7 @@ const UserSearchMap = () => {
 
                         remainingStores--;
                         if (remainingStores === 0) {
-                            setStores(updatedStores); // ⭐️ 모든 리뷰 가져온 후 한 번만 업데이트
+                            setStores(updatedStores);
                         }
                     });
                 });
@@ -134,9 +133,9 @@ const UserSearchMap = () => {
 
         fetchReviews(store.storeId, (rating, reviewCount) => {
             setSelectedStore({
-                ...fullStoreData,  // 기존 stores에서 찾은 데이터 우선 사용
-                storeRating: rating,  // 최신 별점 반영
-                storeReviewCount: reviewCount,  //  최신 리뷰 개수 반영
+                ...fullStoreData,
+                storeRating: rating,
+                storeReviewCount: reviewCount,
             });
         });
 
@@ -145,7 +144,7 @@ const UserSearchMap = () => {
     useEffect(() => {
         if (!mapRef.current) return;
 
-        clearMarkers(); // 기존 마커 삭제
+        clearMarkers();
 
         const displayStores = searchResults.length > 0 ? searchResults : stores;
         console.log(" 지도에 표시할 매장 목록:", displayStores);
@@ -172,13 +171,13 @@ const UserSearchMap = () => {
             //  마커 클릭 이벤트: 실시간 리뷰 반영
             window.kakao.maps.event.addListener(marker, "click", () => {
                 infoWindow.close();
-                handleMarkerClick(store); // 실시간 별점 & 리뷰 반영
+                handleMarkerClick(store);
             });
 
             markersRef.current.push(marker);
             infoWindowsRef.current.push(infoWindow);
         });
-    }, [searchResults, stores]); // `stores` 변경 시 다시 실행
+    }, [searchResults, stores]);
 
     //  매장 상세 정보 보기
     const handleStore = () => {
@@ -191,7 +190,7 @@ const UserSearchMap = () => {
         <div className="user-search-map-container">
             <div id="search-map" className="search-map"></div>
             {selectedStore && (
-                <div className="store-info" onClick={handleStore}> {/* 여기 추가됨 */}
+                <div className="store-info" onClick={handleStore}>
                     <div className="store-modal">
                         <div className="user-order-hr" onClick={(e) => {
                             e.stopPropagation();

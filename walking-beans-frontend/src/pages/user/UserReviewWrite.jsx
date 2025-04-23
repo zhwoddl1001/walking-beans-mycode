@@ -18,23 +18,11 @@ const UserReviewWrite = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [storeName, setStoreName] = useState('');
-
-
-    /*  const [newReview, setNewReview] = useState({
-          orderId: orderId,
-          userId: null,
-          storeId: storeId,
-          reviewStarRating: 5, // 기본값 5점
-          reviewContent: "",
-      }); 연결되면 storeId,orderId 작성*/
     const [newReview, setNewReview] = useState({
-        orderId: orderId, // 🛠 테스트용 주문 ID (실제 존재하는 order_id로 설정)
-        userId: userId, // 🛠 테스트용 유저 ID
-        storeId: storeId, // 🛠 테스트용 매장 ID (실제 존재하는 store_id로 설정)
-        /*  orderId: 5, // 🛠 테스트용 주문 ID (실제 존재하는 order_id로 설정)
-          userId: 1, // 🛠 테스트용 유저 ID
-          storeId: 2, // 🛠 테스트용 매장 ID (실제 존재하는 store_id로 설정)*/
-        reviewStarRating: 5, // 기본값 5점
+        orderId: orderId,
+        userId: userId,
+        storeId: storeId,
+        reviewStarRating: 5,
         reviewContent: "",
     });
     const [newRiderReview, setNewRiderReview] = useState({
@@ -50,7 +38,7 @@ const UserReviewWrite = () => {
 
 
     useEffect(() => {
-        // 로컬 스토리지에서 사용자 정보 가져오기
+
         const storedUser = JSON.parse(localStorage.getItem("user"));
         if (storedUser && storedUser.user_id) {
             setNewReview((prevReview) => ({
@@ -60,7 +48,7 @@ const UserReviewWrite = () => {
         }
     }, []);
 
-    //  매장 별점 선택
+
     const handleStarClick = (rating) => {
         setNewReview((prevReview) => ({
             ...prevReview,
@@ -68,7 +56,7 @@ const UserReviewWrite = () => {
         }));
     };
 
-    //  라이더 별점 선택
+
     const handleRiderStarClick = (rating) => {
         setNewRiderReview((prevReview) => ({
             ...prevReview,
@@ -76,25 +64,25 @@ const UserReviewWrite = () => {
         }));
     };
 
-    //  파일 선택 핸들러 (여러 개 추가)
+
     const handleFileChange = (event) => {
         const files = Array.from(event.target.files);
         const previewFiles = files.map((file) => ({
             file,
-            preview: URL.createObjectURL(file), // 미리보기 URL 생성
+            preview: URL.createObjectURL(file),
         }));
 
-        setSelectedImages((prevImages) => [...prevImages, ...previewFiles]); // 기존 이미지에 추가
+        setSelectedImages((prevImages) => [...prevImages, ...previewFiles]);
     };
 
 
-    //  개별 이미지 삭제
+
     const removeImage = (index) => {
         setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
 
-    //  리뷰 작성 요청
+
     const handleReviewSubmit = (e) => {
         e.preventDefault();
 
@@ -112,7 +100,7 @@ const UserReviewWrite = () => {
         formData.append("reviewStarRating", newReview.reviewStarRating);
         formData.append("reviewContent", newReview.reviewContent);
 
-        //  이미지 파일 올바르게 추가
+
         selectedImages.forEach((img) => {
             formData.append("file", img.file);
         });
@@ -142,11 +130,10 @@ const UserReviewWrite = () => {
                 alert("백엔드에 리뷰를 저장하지 못했습니다.");
             })
             .finally(() => {
-                setIsLoading(false); //모든 요청 완료 후 로딩 종료
+                setIsLoading(false);
             });
     };
 
-    //해당되는 주문 정보 가져오기
     useEffect(() => {
         if (orderId) {
             axios.get(`http://localhost:7070/api/orders/${orderId}`)
@@ -154,24 +141,24 @@ const UserReviewWrite = () => {
                     setNewReview(prevReview => ({
                         ...prevReview,
                         orderId: orderId,
-                        storeId: res.data.storeId, // storeId 추가
+                        storeId: res.data.storeId,
                     }));
                     setNewRiderReview(prevReview => ({
                         ...prevReview,
                         orderId: orderId,
-                        riderId: res.data.RiderIdOnDuty || null //  riderId 추가 (없으면 null)
+                        riderId: res.data.RiderIdOnDuty || null
                     }));
                 })
                 .catch(err => console.error("주문 정보 조회 실패:", err));
         }
     }, [orderId]);
 
-    // 가게 정보 가져오기
+
     useEffect(() => {
         if (storeId) {
             axios.get(`http://localhost:7070/api/store/${storeId}`)
                 .then(res => {
-                    setStoreName(res.data.storeName); // 가게 이름 상태 저장
+                    setStoreName(res.data.storeName);
                 })
                 .catch(err => console.error("가게 정보 조회 실패:", err));
         }

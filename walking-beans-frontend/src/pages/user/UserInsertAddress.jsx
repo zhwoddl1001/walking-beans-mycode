@@ -7,11 +7,11 @@ import searchIcon from "../../assert/images/user/searchIcon.svg"
 
 const UserInsertAddress = ({user}) => {
     const navigate = useNavigate();
-    const [address, setAddress] = useState(""); // 주소
-    const [detailedAddress, setDetailedAddress] = useState(""); // 상세 주소
-    const [addressName, setAddressName] = useState(""); // 주소 별칭
+    const [address, setAddress] = useState("");
+    const [detailedAddress, setDetailedAddress] = useState("");
+    const [addressName, setAddressName] = useState("");
     const [currentUser, setCurrentUser] = useState(user);
-    const [savedAddresses, setSavedAddresses] = useState([]); // 저장된 주소 목록
+    const [savedAddresses, setSavedAddresses] = useState([]);
     const [isKakaoLoaded, setIsKakaoLoaded] = useState(false);
     const [addressLatitude, setLatitude] = useState("");
     const [addressLongitude, setLongitude] = useState("");
@@ -53,14 +53,14 @@ const UserInsertAddress = ({user}) => {
         document.body.appendChild(script2);
     }, []);
 
-    // 로그인한 유저의 주소 목록 불러오기
+
     const fetchUserAddresses = (userId) => {
         if (!userId) return;
 
         axios
             .get(`http://localhost:7070/api/addresses/${userId}`)
             .then((res) => {
-                setSavedAddresses(res.data); // 서버에서 받은 주소 목록 저장
+                setSavedAddresses(res.data);
                 console.log("불러온 주소 목록:", res.data);
             })
             .catch((error) => {
@@ -74,11 +74,11 @@ const UserInsertAddress = ({user}) => {
         }
     }, [currentUser]);
 
-    //  카카오 주소 검색 함수
+
     const handleSearchAddress = () => {
         new window.daum.Postcode({
             oncomplete: function (data) {
-                setAddress(data.roadAddress); // 선택한 도로명 주소 저장
+                setAddress(data.roadAddress);
 
                 if (!isKakaoLoaded || !window.kakao || !window.kakao.maps) {
                     console.error("카카오 지도 API가 아직 로드되지 않았습니다.");
@@ -86,15 +86,15 @@ const UserInsertAddress = ({user}) => {
                     return;
                 }
 
-                // 카카오 주소 -> 좌표 변환 API 호출
+
                 const geocoder = new window.daum.maps.services.Geocoder();
                 geocoder.addressSearch(data.roadAddress, function (result, status) {
                     if (status === window.daum.maps.services.Status.OK) {
-                        const latitude = result[0].y;  // 위도
-                        const longitude = result[0].x; // 경도
+                        const latitude = result[0].y;
+                        const longitude = result[0].x;
                         console.log("위도:", latitude, "경도:", longitude);
 
-                        // 상태 저장 (추가 가능)
+
                         setLatitude(latitude);
                         setLongitude(longitude);
                     } else {
@@ -105,7 +105,7 @@ const UserInsertAddress = ({user}) => {
         }).open();
     };
 
-    //  주소 저장 API (POST 요청)
+
     const handleSaveAddress = () => {
         if (!address || !addressName) {
             alert("주소와 별칭을 입력해주세요!");
@@ -114,7 +114,7 @@ const UserInsertAddress = ({user}) => {
 
         axios
             .post("http://localhost:7070/api/addresses/UserInsertAddress", {
-                userId: currentUser?.user_id, // 로그인한 유저의 ID 추가
+                userId: currentUser?.user_id,
                 addressName,
                 address,
                 detailedAddress,
@@ -123,10 +123,10 @@ const UserInsertAddress = ({user}) => {
             })
             .then((res) => {
                 alert("주소가 저장되었습니다!");
-                setAddress(""); // 입력 필드 초기화
+                setAddress("");
                 setAddressName("");
                 setDetailedAddress("");
-                fetchUserAddresses(currentUser?.user_id); // 저장 후 목록 갱신
+                fetchUserAddresses(currentUser?.user_id);
             })
             .catch((error) => {
                 console.error("주소 저장 오류:", error);
@@ -134,7 +134,7 @@ const UserInsertAddress = ({user}) => {
             });
     };
 
-    // 대표주소 설정
+
     const handleSetPrimaryAddress = (addressId) => {
         axios.put(`http://localhost:7070/api/addresses/updateRole`, {
             userId: currentUser?.user_id,
@@ -145,9 +145,9 @@ const UserInsertAddress = ({user}) => {
                 alert("기본 주소가 변경되었습니다.");
 
                 localStorage.setItem("addressUpdated", "true");
-                window.dispatchEvent(new Event("addressUpdated"));  // 다른 컴포넌트에도 알림 전송
+                window.dispatchEvent(new Event("addressUpdated"));
 
-                fetchUserAddresses(currentUser?.user_id);  // 목록 갱신
+                fetchUserAddresses(currentUser?.user_id);
             })
             .catch((error) => {
                 console.error("기본 주소 변경 오류:", error);
@@ -155,7 +155,7 @@ const UserInsertAddress = ({user}) => {
                 console.log("전송할 addressId:", addressId);
             });
     };
-    // 주소 삭제
+
     const handleDeleteAddress = (addressId) => {
         if (!addressId) {
             alert("삭제할 주소 ID가 없습니다.");
@@ -165,7 +165,7 @@ const UserInsertAddress = ({user}) => {
         axios.delete(`http://localhost:7070/api/addresses/delete/${addressId}`)
             .then(() => {
                 alert("주소가 삭제되었습니다.");
-                fetchUserAddresses(currentUser?.user_id); // 주소 목록 새로고침
+                fetchUserAddresses(currentUser?.user_id);
             })
             .catch((error) => {
                 console.error("주소 삭제 오류:", error);
@@ -230,7 +230,7 @@ const UserInsertAddress = ({user}) => {
             </div>
             <div className="mt-3">
                 {savedAddresses.map((addr, index) => {
-                    const isLastItem = index === savedAddresses.length - 1;  // savedAddresses.length로 수정
+                    const isLastItem = index === savedAddresses.length - 1;
 
                     return (
                         <div key={addr.id}>
@@ -246,7 +246,7 @@ const UserInsertAddress = ({user}) => {
                                 <button
                                     className="btn user-order-bordtext"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // 부모 이벤트 전파 방지
+                                        e.stopPropagation();
                                         handleDeleteAddress(addr.addressId);
                                     }}
                                 >

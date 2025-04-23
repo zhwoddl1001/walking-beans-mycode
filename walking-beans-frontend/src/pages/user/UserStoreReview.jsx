@@ -6,16 +6,16 @@ import "../../css/User.css"; // CSS 경로 확인
 const UserStoreReview = () => {
     const { storeId } = useParams();
     const [reviews, setReviews] = useState([]);
-    const [storeName, setStoreName] = useState(""); // 매장 이름 저장
+    const [storeName, setStoreName] = useState("");
     const [ratingStats, setRatingStats] = useState({ average: 0, counts: [0, 0, 0, 0, 0] });
-    const [userId, setUserId] = useState(null); // ✅ 로그인된 사용자 ID 저장
+    const [userId, setUserId] = useState(null);
 
 
     useEffect(() => {
-        //  localStorage에서 사용자 정보 가져오기
+
         const storedUser = JSON.parse(localStorage.getItem("user"));
         if (storedUser && storedUser.user_id) {
-            setUserId(storedUser.user_id); // ✅ 로그인한 userId 설정
+            setUserId(storedUser.user_id);
         } else {
             console.warn("로그인한 사용자의 userId를 찾을 수 없습니다.");
         }
