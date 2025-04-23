@@ -1,0 +1,240 @@
+.user-home-container {
+    max-width: 600px;
+    width: 100%;
+    margin: 0;
+    background-color: #F4EDDF;
+    padding: 0 30px;
+}
+
+.user-home-container .user-home-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a3e2b;
+    margin-bottom: 12px;
+}
+
+.user-home-container #map {
+    width: 100%;
+    height: 400px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-home-container .store-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-home-container .store-name {
+    font-weight: bold;
+    color: #5a3e2b;
+}
+
+.user-home-container .store-distance {
+    font-size: 12px;
+    color: #888;
+}
+
+.user-home-container .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-size: 18px;
+}
+
+.user-home-container .form-select {
+
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.user-home-container .store-rating {
+    color: #EE5A4C;
+}
+
+.user-home-container .store-picture {
+    width: 50%;
+    height: 50%;
+}
+
+.user-home-container .user-sequence-from {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.user-home-container .user-sequence-from-select {
+    background: #AB7A44;
+    border-radius: 30px;
+    width: 135px;
+    height: 60px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 6px;
+    appearance: none;
+    padding-right: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: border-radius 0.2s ease-in-out;
+    position: relative;
+}
+
+/* sequence 리스트 열렸을 때 */
+.user-home-container .user-sequence-from-select.open {
+    border-radius: 30px 30px 0 0;
+}
+
+.user-home-container .user-sequence-from-select .options {
+    display: none;
+    position: absolute;
+    background: #F4EDDF;
+    color: #5A3D21;
+    font-weight: bold;
+    text-align: center;
+    top: 100%;
+    left: 0;
+    width: auto;
+    min-width: 100%;
+    border: 1px solid #ccc;
+    z-index: 3;
+    border-radius: 0 0 30px 30px;
+    overflow: hidden;
+    padding: 0;
+}
+
+/* sequence 리스트 열렸을 때 보이게 */
+.user-home-container .user-sequence-from-select.open .options {
+    display: block;
+}
+
+.user-home-container .user-sequence-from-select .options li {
+    padding: 5px;
+    color: #5A3D21;
+    cursor: pointer;
+    transition: background 0.3s;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.user-home-container .user-sequence-from-select .options li:hover {
+    background: #AB7A44;
+    color: #fff;
+}
+
+/* 아이콘 스타일 */
+.selected-option img {
+    width: 25px;
+    margin-left: 5px;
+}
+
+.user-home-container .selected-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 0 0 9px;
+}
+
+.user-home-container .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    border-radius: 30px;
+    border: 1px solid #AB7A44;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
+
+.user-home-container .input-icon {
+    position: absolute;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.user-home-container .insert-address {
+    flex: 1;
+    font-size: 22px;
+    color: #5A3D21;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding-left: 50px;
+    height: 100%;
+    padding-right: 15px;
+}
+
+.user-home-container .insert-address::placeholder {
+    color: #D2B595;
+}
+
+.user-home-container .store-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.user-home-container .store-image {
+    width: 290px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.user-home-container .image-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-home-container .menu-image {
+    width: 114px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.user-home-container .store-info {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.user-home-container .store-title {
+    font-size: 23px;
+    color: #5a3e2b;
+    font-weight: bold;
+    letter-spacing: -1px;
+    margin-top: 7px;
+}
+
+.user-home-container .rating-text {
+    font-size: 18px;
+    color: #5A3D21;
+    align-items: center;
+}
+
+.user-home-container .user-home-m {
+    margin: 30px 0;
+}
+
+.user-home-container .menu-image {
+    object-fit: cover;
+}

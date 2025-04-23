@@ -1,0 +1,677 @@
+/**************** 유저 헤더 *****************/
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5A3D21;
+    padding: 10px 20px;
+    border-radius: 0 0 40px 40px;
+}
+
+.user-header .left-icons,
+.user-header .right-icons {
+    display: flex;
+    align-items: center;
+}
+
+.user-header .header-icon {
+    width: 30px; /* 아이콘 크기 */
+    height: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.user-header .logo-img {
+    width: 120px; /* 로고 크기 */
+    height: auto;
+}
+
+/***************** UserSearchMap *******************/
+/*
+5A3D21
+className="cursor-pointer text-primary fw-bold"
+*/
+.user-search-map-container .user-order-hr {
+    width: 40px;
+    height: 6px;
+    background-color: #5A3D21;
+    border: none;
+    margin: -10px auto 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-search-map-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.user-search-map-container .store-info {
+    z-index: 10;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: slideUp 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    width: 100%;
+    max-width: 600px;
+}
+
+.user-search-map-container .store-info .store-modal {
+    max-height: 530px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: #F4EDDF;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 30px 30px 0 0;
+    overflow-y: auto;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    top: auto;
+    z-index: 11;
+    cursor: pointer;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.user-search-map-container .info-text-big {
+    color: #5A3D21;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.user-search-map-container .search-map {
+    width: 100%;
+    height: 650px;
+    margin-top: -30px;
+}
+
+.user-search-map-container .info-grid {
+    display: grid;
+    grid-template-columns: 180px 350px;
+    gap: 20px;
+}
+
+.user-search-map-container .info-text {
+    font-size: 17px;
+    color: #5A3D21;
+}
+
+.user-search-map-container .info-text-bold {
+    font-size: 17px;
+    color: #5A3D21;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.user-search-map-container .status-btn-mini {
+    background: #EE5A4C;
+    color: #F4EDDF;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    padding: 2px 8px;
+    margin-bottom: 5px;
+    width: 100%;
+    max-width: 120px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.store-info .store-picture {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+
+}
+
+
+/***************** UserInsertAddress *******************/
+.user-insert-address-container {
+    width: 100%;
+    height: auto;
+    max-height: 700px;
+    background-color: #F4EDDF;
+    padding: 30px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #AB7A44 #F4EDDF;
+}
+
+.user-insert-address-container .address-alias,
+.user-insert-address-container .detailed-address {
+    padding: 3px;
+    border-radius: 30px;
+    border: 2px solid #AB7A44;
+    text-align: center;
+    display: block;
+    width: 70%;
+    margin: 10px auto 0;
+}
+
+/* 포커스 상태에서 테두리 색상 변경 방지 */
+.user-insert-address-container .address-alias:focus,
+.user-insert-address-container .detailed-address:focus,
+.user-insert-address-container .insert-address:checked {
+    outline: none;
+    border: 2px solid #AB7A44;
+}
+
+.user-insert-address-container .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+
+}
+
+.user-insert-address-container .save-btn,
+.user-insert-address-container .cancel-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    width: 130px;
+    text-align: center;
+    background-color: #AB7A44;
+    border: none;
+    color: #F4EDDF;
+    font-weight: bold;
+}
+
+.user-insert-address-container .insert-address {
+    flex: 1;
+    height: 60px;
+    font-size: 22px;
+    color: #5A3D21;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding-left: 50px;
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+/* placeholder 색상 설정*/
+.user-insert-address-container .insert-address::placeholder,
+.user-insert-address-container .detailed-address::placeholder,
+.user-insert-address-container .address-alias::placeholder {
+    color: #D2B595;
+}
+
+.user-insert-address-container .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 30px;
+    border: 1px solid #AB7A44;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
+
+.user-insert-address-container .input-icon {
+    position: absolute;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.user-insert-address-container .button-icon {
+    margin-right: 10px;
+}
+
+.user-insert-address-container .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-insert-address-container .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+}
+
+.user-insert-address-container .modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.user-insert-address-container .modal-content button {
+    margin: 5px;
+    padding: 10px;
+}
+
+.user-insert-address-container .btn-mini {
+    background: #EE5A4C;
+    color: #F4EDDF;
+    border: none;
+    border-radius: 20px;
+    font-size: 17px;
+    padding: 0 15px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-insert-address-container .address-grid {
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+/******************* user delivery status ********************/
+.user-delivery-map {
+    width: 600px;
+    height: 350px;
+    z-index: 0;
+    top: -20px;
+}
+
+
+/******************* userReviewWrite ********************/
+.user-review-container {
+    background: #F4EDDF;
+    scrollbar-width: thin;
+    scrollbar-color: #AB7A44 #F4EDDF;
+}
+
+.user-review-container .review-all {
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.user-review-container .review-info {
+    margin: 30px 0;
+    width: 600px;
+}
+
+.user-review-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.user-review-container .star-rating {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.user-review-container .star-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.user-review-container .star {
+    font-size: 30px;
+    color: #D2B595;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-review-container .star.filled {
+    color: #ff6347;
+}
+
+.user-review-container .star:hover {
+    color: #ff4500;
+}
+
+
+.user-review-container textarea {
+    width: 100%;
+    max-width: 540px;
+    height: 200px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #5A3D21;
+    resize: none;
+    outline: none;
+    margin-bottom: 15px;
+    text-align: left;
+    vertical-align: top;
+    background-color: white;
+}
+
+.user-review-container textarea::placeholder {
+    color: #D2B595;
+}
+
+.user-review-container .file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-review-container .file-upload {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid #5A3D21;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.user-review-container .file-upload label,
+.user-review-container .file-upload .btn-text,
+.user-review-container .file-upload input[type="file"] {
+    cursor: pointer;
+}
+
+.user-review-container .file-btn {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border: 1px solid #5A3D21;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-review-container .btn-text {
+    font-size: 14px;
+    color: #5A3D21;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.user-review-container .file-upload label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-review-container input[type="file"] {
+    display: none;
+}
+
+.user-review-container .image-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+
+}
+
+.user-review-container .submit-button {
+    width: 411px;
+    height: 60px;
+    border-radius: 30px;
+    background: #5A3D21;
+    color: #F4EDDF;
+    border: none;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration-line: none;
+}
+
+.user-review-container .image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-review-container .image-preview-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 5px;
+    object-fit: cover;
+
+}
+
+.user-review-container .remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.user-review-container .remove-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.user-review-container .review-divider {
+    border: none;
+    border-top: 2px #D7BEA2 solid;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.user-review-container .button-center-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.user-review-container .user-order-address-text{
+    font-weight: bold;
+}
+
+.user-review-container .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-review-container .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+/************** UserStoreReview ******************/
+
+.user-store-review {
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F4EDDF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 650px;
+    overflow-y: auto;
+}
+
+.user-store-review h2 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.user-store-review .review-list {
+    margin-top: 20px;
+}
+
+.user-store-review .review-card {
+    background: #D7BEA2;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-store-review .review-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.user-store-review .review-stars {
+    color: #ff4500;
+    font-size: 18px;
+}
+
+.user-store-review .review-content {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.user-store-review .review-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.user-store-review .no-reviews {
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+}
+
+.user-store-review .review-summary {
+    background: #F4EDDF;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.user-store-review .average-rating {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.user-store-review .big-star {
+    font-size: 28px;
+    color: #ff4500;
+}
+
+.user-store-review .average-score {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.user-store-review .rating-bars {
+    margin-top: 10px;
+}
+
+.user-store-review .rating-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.user-store-review .star-text {
+    width: 40px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.user-store-review .progress-bar {
+    flex: 1;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.user-store-review .progress-fill {
+    height: 100%;
+    background-color: #ff4500;
+    transition: width 0.3s ease-in-out;
+}
+
+.user-store-review .count-text {
+    width: 40px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.user-store-review .review-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-store-review .delete-review-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.user-store-review .delete-review-btn:hover {
+    background-color: #cc0000;
+}
+
+.user-store-review .review-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 5px;
+}
+

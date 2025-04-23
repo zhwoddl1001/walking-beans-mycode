@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="walking_beans.walking_beans_backend.mapper.ReviewMapper">
+
+    <!-- 특정 매장의 리뷰 조회 -->
+    <select id="getReviewsByStore">
+        SELECT r.*, u.user_name
+        FROM Reviews r
+                 JOIN Users u ON r.user_id = u.user_id
+        WHERE r.store_id = #{storeId}
+    </select>
+
+    <!-- 리뷰 추가 -->
+    <insert id="insertReview">
+        INSERT INTO Reviews (
+            order_id, user_id, store_id, review_star_rating, review_content,
+            review_created_date, review_modified_date, review_picture_url
+        )
+        VALUES (
+                   #{orderId}, #{userId}, #{storeId}, #{reviewStarRating}, #{reviewContent},
+                   NOW(), NOW(), #{reviewPictureUrl}
+               );
+    </insert>
+
+    <!-- 리뷰 수정 -->
+    <update id="updateReview" >
+        UPDATE Reviews
+        SET review_star_rating = #{reviewStarRating},
+            review_content = #{reviewContent},
+            review_picture_url = #{reviewPictureUrl},
+            review_modified_date = CURRENT_TIMESTAMP
+        WHERE review_id = #{reviewId}
+    </update>
+
+    <!-- 리뷰 삭제 -->
+    <delete id="deleteReview" >
+        DELETE FROM Reviews WHERE review_id = #{reviewId}
+    </delete>
+
+    <select id="findReviewById">
+        SELECT * FROM Reviews WHERE review_id = #{reviewId}
+    </select>
+
+    <!-- 유저가 주문한 스토어에 대한 리뷰 존재 여부 확인 -->
+    <select id="existsReviewByOrderId" resultType="boolean">
+        SELECT EXISTS(
+            SELECT 1 FROM Reviews
+            WHERE order_id = #{orderId}
+        ) as exists_review
+    </select>
+
+</mapper>

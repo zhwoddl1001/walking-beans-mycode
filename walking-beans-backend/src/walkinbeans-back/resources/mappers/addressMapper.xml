@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="walking_beans.walking_beans_backend.mapper.AddressMapper">
+
+    <!-- 모든 주소 조회 -->
+    <select id="getAllAddresses">
+        SELECT *
+        FROM Address
+    </select>
+
+    <!-- 주소 추가 -->
+    <insert id="insertAddress">
+        INSERT INTO Address (address_id,user_id, address, detailed_address,address_name, address_latitude, address_longitude, address_role)
+        VALUES (#{addressId},#{userId}, #{address},#{detailedAddress}, #{addressName}, #{addressLatitude}, #{addressLongitude}, #{addressRole})
+    </insert>
+
+    <!-- 특정 id로 주소 검색 -->
+    <select id="getAddressByUserId">
+        SELECT * FROM Address WHERE user_id = #{userId}
+    </select>
+
+    <!-- 대표 주소 지정 -->
+    <select id="getPrimaryAddressByUserId">
+        SELECT * FROM Address WHERE user_id = #{userId} AND address_role = 1 LIMIT 1
+    </select>
+
+    <!-- 대표 주소 변경 -->
+    <update id="updatePrimaryAddress">
+        UPDATE address
+        SET address_role = 1
+        WHERE address_id = #{addressId}
+    </update>
+
+    <!-- 특정 유저의 모든 주소의 addressRole을 0으로 변경 -->
+    <update id="resetAddressRoles">
+        UPDATE address
+        SET address_role = 0
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 주소 삭제 -->
+    <delete id="deleteAddress">
+        DELETE FROM address WHERE address_id = #{addressId}
+    </delete>
+
+
+    <!-- ========= Leo ========= -->
+    <select id="getUserMainAddress">
+        SELECT A.address_id, A.user_id, A.address, A.detailed_address, A.address_name, A.address_latitude, A.address_longitude, A.address_role
+        FROM address A
+                 JOIN orders O
+                      ON A.user_id = O.user_id
+        WHERE O.order_id = #{orderId}
+          AND A.user_id = #{userId}
+          AND A.address_role = 1
+    </select>
+    <!-- -->
+
+
+    <!-- 주문 기준으로 사용자가 선택한 주소 가져오기 -->
+    <select id="getUserAddressByOrderId">
+        SELECT a.address_id, a.user_id, a.address, a.detailed_address, a.address_name, a.address_latitude, A.address_longitude, a.address_role
+        FROM address a
+                 JOIN orders o ON a.address_id = o.address_id
+        WHERE o.order_id = #{orderId}
+    </select>
+
+</mapper>

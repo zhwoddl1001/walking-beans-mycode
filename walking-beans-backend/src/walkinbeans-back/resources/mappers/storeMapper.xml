@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="walking_beans.walking_beans_backend.mapper.StoreMapper">
+    <!--매장 전체 불러오기 -->
+    <select id="findAllStores">
+        SELECT *
+        FROM stores
+    </select>
+
+    <!--//매장 검색, KEYWORD 로 매장 이름, 설명, 메뉴 검색가능. -->
+    <select id="searchStore">
+        SELECT DISTINCT s.store_id, s.store_name, s.store_picture_url,
+                        s.store_min_delivery_time, s.store_rating, s.store_review_count,
+                        s.store_latitude, s.store_longitude, s.store_operation_hours, s.store_status
+        FROM stores s
+                 LEFT JOIN menu m ON s.store_id = m.store_id
+        WHERE s.store_name LIKE CONCAT('%', #{keyword}, '%')
+           OR s.store_description LIKE CONCAT('%', #{keyword}, '%')
+           OR s.store_main_menu LIKE CONCAT('%', #{keyword}, '%')
+           OR m.menu_name LIKE CONCAT('%', #{keyword}, '%')
+           OR m.menu_description LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <!--//특정 매장 불러오기, ID -->
+    <select id="findStoresById">
+        SELECT *
+        FROM stores
+        WHERE store_id = #{storeId}
+    </select>
+
+
+
+    <!--사용자 위치 기준 반경 10km 내의 매장 조회 -->
+    <select id="findNearbyStores">
+        SELECT * FROM (
+        SELECT s.*,
+        (6371 * acos(cos(radians(#{lat})) * cos(radians(s.store_latitude))
+        * cos(radians(s.store_longitude) - radians(#{lng}))
+        + sin(radians(#{lat})) * sin(radians(s.store_latitude)))) AS distance
+        FROM Stores s
+        ) AS store_distance
+        WHERE <![CDATA[ distance <= #{radius} ]]>  <!--  `<![CDATA[]]>` 사용 xml 파일에서 < 는 태그표시로 오해받음 -->
+        ORDER BY distance ASC;
+    </select>
+</mapper>
